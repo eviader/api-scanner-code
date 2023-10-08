@@ -6,9 +6,9 @@ from typing import Optional
 
 
 class Product(BaseModel):
-    id: Optional[str]
-    code: Optional[str]
-    description: Optional[str]
-    stock: Optional[str]
-    value: Optional[str]
-    altcode: Optional[str]
+    id: str | None
+    code: str
+    description: str
+    stock: str
+    value: str
+    altcode: str

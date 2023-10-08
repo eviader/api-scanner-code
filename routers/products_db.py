@@ -22,6 +22,10 @@ async def products():
 async def product(id: str):
     return search_product("_id", ObjectId(id))
 
+@router.get("/")  # Query
+async def product(id: str):
+    return search_product("_id", ObjectId(id))
+
 
 @router.post("/", response_model=Product, status_code=status.HTTP_201_CREATED)
 async def product(product: Product):
@@ -31,6 +35,7 @@ async def product(product: Product):
 
     try:
         product_dict = dict(product)
+        del product_dict["id"]
 
         id = db_client.products.insert_one(product_dict).inserted_id
 
@@ -38,13 +43,13 @@ async def product(product: Product):
 
         return Product(**new_product)
     except:
-        print("ERROR")
+        return {"error": "No se ha pudo cargar el producto"}
 # Helper
 
 def search_product(field: str, key):
 
     try:
         product = db_client.products.find_one({field: key})
-        return Product(**products_schema(product))
+        return Product(**product_schema(product))
     except:
-        return {"error": "No se ha encontrado el usuario"}
+        return {"error": "No se ha encontrado el producto"}
