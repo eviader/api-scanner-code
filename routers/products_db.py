@@ -29,9 +29,9 @@ async def product(id: str):
 
 @router.post("/", response_model=Product, status_code=status.HTTP_201_CREATED)
 async def product(product: Product):
-    #if type(search_product("code", product.code)) == Product:
-    #    raise HTTPException(
-    #       status_code=status.HTTP_404_NOT_FOUND, detail="El usuario ya existe")
+    if type(search_product("code", product.code)) == Product:
+        raise HTTPException(
+           status_code=status.HTTP_404_NOT_FOUND, detail="El usuario ya existe")
 
     try:
         product_dict = dict(product)
@@ -43,7 +43,7 @@ async def product(product: Product):
 
         return Product(**new_product)
     except:
-        return {"error": "No se ha pudo cargar el producto"}
+        return {"error": "No se ah podido cargar el producto"}
 # Helper
 
 def search_product(field: str, key):

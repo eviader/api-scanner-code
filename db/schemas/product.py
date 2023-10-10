@@ -5,7 +5,6 @@ def product_schema(product) -> dict:
     return {"id": str(product["_id"]),
             "code": product["code"],
             "description": product["description"],
-            "stock": product["stock"],
             "value": product["value"],
             "altcode": product["altcode"]}
 
